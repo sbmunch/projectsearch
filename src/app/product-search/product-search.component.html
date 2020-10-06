@@ -1,0 +1,23 @@
+<div>list below:</div>
+<ul class="prodList">
+      <li *ngFor="let Product of products | slice:0:10" 
+	  [class.selected]="Product === selectedProduct"
+	  (click)="onClickedProduct(Product)">
+		<div>
+			<span class="sProd">{{Product.title}}</span>
+		
+			<div *ngIf="selectedProduct === Product">
+				<div class="sProdDetails">
+				<span>brand: </span>{{selectedProduct.brand}}
+				<span>supplier: </span>{{selectedProduct.suppliername}}
+				<span>date: </span>{{selectedProduct.created}}
+				<br>
+				<span>price: </span>{{selectedProduct.price}}
+				<span>costprice: </span>{{selectedProduct.costprice}}
+				<span>id: </span>{{selectedProduct.id}}
+				<span>nr: </span>{{selectedProduct.productno}}
+				</div>
+			</div>
+		</div>
+	  </li>
+</ul>

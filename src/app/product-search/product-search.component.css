@@ -1,0 +1,42 @@
+.sProd {
+	font-size: 0.6em;
+    white-space: nowrap;
+    width: 100%;                   /* IE6 needs any width */
+    overflow: hidden;              /* "overflow" value must be different from  visible"*/ 
+    -o-text-overflow: ellipsis;    /* Opera < 11*/
+    text-overflow:    ellipsis;    /* IE, Safari (WebKit), Opera >= 11, FF > 6 */
+}
+.sProdDetails {
+	font-size: 0.3em;
+	
+}
+.prodList {
+  margin: 0 0 2em 0;
+  list-style-type: none;
+  padding: 0;
+  width: 15em;
+}
+.prodList li {
+  cursor: pointer;
+  position: relative;
+  left: 0;
+  background-color: #EEE;
+  margin: .5em;
+  padding: .01em 0;
+  height: 1.1em;
+  border-radius: 4px;
+}
+.prodList li:hover {
+  color: #607D8B;
+  background-color: #DDD;
+}
+.prodList li.selected {
+  background-color: #CFD8DC;
+  color: white;
+  left: .1em;
+  height: 2.1em;
+}
+.prodList li.selected:hover {
+  background-color: #BBD8DC;
+  color: white;
+}

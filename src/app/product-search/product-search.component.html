@@ -1,9 +1,12 @@
-<div>list below:</div>
+<app-page-selector (pageNRoutput)="pageNrEventCatch($event)"></app-page-selector>
+<div class="pageSearch">
+ <input [(ngModel)]="this.searchString" (ngModelChange) = "productSearch($event)" placeholder=search/> 
+</div>
 <ul class="prodList">
-      <li *ngFor="let Product of products | slice:0:10" 
+<!--      <li *ngFor="let Product of products | slice:pageNR*10-10:pageNR*10" -->
+	  <li *ngFor="let Product of products | slice:pageNRp*10-10:pageNRp*10"
 	  [class.selected]="Product === selectedProduct"
 	  (click)="onClickedProduct(Product)">
-		<div>
 			<span class="sProd">{{Product.title}}</span>
 		
 			<div *ngIf="selectedProduct === Product">
@@ -18,6 +21,5 @@
 				<span>nr: </span>{{selectedProduct.productno}}
 				</div>
 			</div>
-		</div>
 	  </li>
 </ul>

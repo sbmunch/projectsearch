@@ -25,22 +25,37 @@ export class ProductSearchComponent implements OnInit {
   insertProducts(): void {
 	this.productService.getProducts()
 	.pipe(
-//	debounceTime(150), //debounce should not be here, it should be on text input.
-	map(content => content
-	.filter(item => item.title.includes(this.searchString))
-	)  // working!
+		map(content => content
+		.filter(item => this.titleTextcompare(item.title.toLowerCase(),this.searchString.toLowerCase())
+		)
+		)
 	)
 	.subscribe(data => {
 		this.products = data;
 	})
   }
   
-  // pass observable through a new function checking the search term(s), and pass that as input to the ngfor
-//  obsFilterSerach(inputObs: Observable<Product[]>): Observable<Product[]> {
-//	  return inputObs.pipe(
-//	  map(content => content.filter(item => item.title.includes(this.searchString)))
-//	  );
-//  }
+  titleTextcompare(title: string, inputstring: string): boolean {
+	  if (!title && !inputstring) {
+		  return true;
+	  }
+	  if (title && !inputstring) {
+		  return false;
+	  }
+	  if (!title && inputstring) {
+		  return false;
+	  }
+	  
+	  var res: boolean = true;
+	  for (let word of inputstring.split(" ")) {
+		  if (!title.includes(word)) {
+			res = false;
+		  }
+	  }
+	  // alternative free text search might need to give a "score" based on title and text similarity.
+	  return res;
+	  
+  }
   
   selectedProduct: Product;
 
@@ -52,7 +67,6 @@ export class ProductSearchComponent implements OnInit {
   searchString: string;
   
   productSearch(searchinput:string): void {
-	//console.log(this.searchString);
 	
 	this.searchStringCopy.next(searchinput);
 	

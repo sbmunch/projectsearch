@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import { catchError, retry, shareReplay, map } from 'rxjs/operators';
+import { Observable, throwError, of } from 'rxjs';
+import { catchError, retry, shareReplay, map, concatMap, delay } from 'rxjs/operators';
 import {Product} from "../assets/products";
-//import {content} from '../assets/products.json'; 
 
 const Cache_size = 1;
 
@@ -17,6 +16,7 @@ export class ProductServiceService {
   obsProducts: Observable<Product[]>;
   
   getProducts(): Observable<Product[]> {
+
 	if (this.obsProducts) {
 		return this.obsProducts;
 	}

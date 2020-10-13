@@ -4,7 +4,7 @@
 </div>
 <ul class="prodList">
 <!--      <li *ngFor="let Product of products | slice:pageNR*10-10:pageNR*10" -->
-	  <li *ngFor="let Product of products | slice:pageNRp*10-10:pageNRp*10"
+	  <li *ngFor="let Product of (products$ | async) | slice:pageNRp*10-10:pageNRp*10"
 	  [class.selected]="Product === selectedProduct"
 	  (click)="onClickedProduct(Product)">
 			<span class="sProd">{{Product.title}}</span>

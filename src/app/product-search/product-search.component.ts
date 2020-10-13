@@ -17,24 +17,26 @@ export class ProductSearchComponent implements OnInit {
 
   constructor(private productService : ProductServiceService) {  }
 
-  products: Product[];
+  products$: Observable<Product[]>;
   
   ngOnInit(): void {
+	this.products$ = this.searchStringCopy
+		.pipe(
+			debounceTime(150)
+			,distinctUntilChanged()
+			,switchMap(model => {
+				return this.productService.getProducts()
+				.pipe(
+					map(content => content
+						.filter(item => this.titleTextcompare(item.title.toLowerCase(),model.toLowerCase())
+						)
+					)
+				);
+			}
+			)
+		);
   }
-  
-  insertProducts(): void {
-	this.productService.getProducts()
-	.pipe(
-		map(content => content
-		.filter(item => this.titleTextcompare(item.title.toLowerCase(),this.searchString.toLowerCase())
-		)
-		)
-	)
-	.subscribe(data => {
-		this.products = data;
-	})
-  }
-  
+ 
   titleTextcompare(title: string, inputstring: string): boolean {
 	  if (!title && !inputstring) {
 		  return true;
@@ -65,27 +67,21 @@ export class ProductSearchComponent implements OnInit {
   
   searchStringCopy: Subject<string> = new Subject<string>();
   searchString: string;
-  
+
   productSearch(searchinput:string): void {
-	
+
 	this.searchStringCopy.next(searchinput);
-	
-	if (this.products) {
 		
-		this.searchStringCopy
-		.pipe(
-		debounceTime(150)
-		,distinctUntilChanged()
-		)
-		.subscribe(model => {
-			this.searchString = model;
-			this.insertProducts();
-		});
-		
-	} else {
-		this.insertProducts();
-	}
-	
+	//this.products$ = this.productService.getProducts()
+	//.pipe(
+	//	debounceTime(150)
+	//	,distinctUntilChanged()
+	//	,map(content => content
+	//	.filter(item => this.titleTextcompare(item.title.toLowerCase(),searchinput.toLowerCase())
+	//	)
+	//	)
+	//);
+
   }
   
   pageNRp: number = 1;

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, throwError, of } from 'rxjs';
-import { catchError, retry, shareReplay, map, concatMap, delay } from 'rxjs/operators';
+import { Observable, throwError } from 'rxjs';
+import { catchError, retry, shareReplay, map } from 'rxjs/operators';
 import {Product} from "../assets/products";
 
 const Cache_size = 1;

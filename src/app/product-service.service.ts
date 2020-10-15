@@ -25,7 +25,8 @@ export class ProductServiceService {
   }
   
   requestProducts() {
-	  this.obsProducts = this.http.get<any>('http://localhost:4200/assets/products.json')
+	  //this.obsProducts = this.http.get<any>('http://localhost:4200/assets/products.json')
+    this.obsProducts = this.http.get<any>('/assets/products.json')
 	  .pipe(map(data => data.content)
 	  ,shareReplay(Cache_size));
   }

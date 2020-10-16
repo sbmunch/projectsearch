@@ -42,7 +42,8 @@ export class ProductSearchComponent implements OnInit {
 		  return true;
 	  }
 	  if (title && !inputstring) {
-		  return false;
+		  //return false; // do I want empty search to give all or none?
+		  return true;
 	  }
 	  if (!title && inputstring) {
 		  return false;
